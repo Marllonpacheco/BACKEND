@@ -22,6 +22,12 @@
         <li class="nav-item">
           <a class="nav-link" href="novo.php">＋ Novo Aluno</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">Olá, <?= $_SESSION['usuario_nome'] ?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="logout.php">Sair</a>
+        </li>
       </ul>
     </div>
   </div>

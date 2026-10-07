@@ -1,3 +1,8 @@
+<?php
+require 'verifica_login.php'; // barra quem não logou
+require 'conexao.php';
+// resto do código normal do CRUD...
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,7 +13,11 @@
 </head>
 <body>
 
-<?php include "navbar.php"; ?>
+
+
+<?php include "navbar.php"; 
+?>
+
 
 <div class="container mt-4">
   <div class="row justify-content-center">

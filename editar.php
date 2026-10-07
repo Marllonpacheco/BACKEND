@@ -1,5 +1,6 @@
 <?php
 include "conexao.php";
+require 'verifica_login.php'; // barra quem não logou
 
 // Pega o ID da URL: editar.php?id=3
 $id = $_GET['id'];

@@ -1,4 +1,6 @@
 <?php
+require 'verifica_login.php'; // barra quem não logou
+require 'conexao.php';
 include "conexao.php";
 $alunos = $conn->query("SELECT * FROM alunos ORDER BY id DESC")
                   ->fetchAll(PDO::FETCH_ASSOC);
