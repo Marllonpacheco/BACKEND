@@ -44,6 +44,11 @@ require 'conexao.php';
                      class="form-control"
                      placeholder="Ex: ana@email.com" required>
             </div>
+            <div class="mb-3">
+            <label class="form-label">Turma</label>
+            <input type="text" name="turma" class="form-control"
+                    placeholder="Ex.: 3ºA" maxlength="50">
+            </div>
 
             <div class="d-flex gap-2">
               <button type="submit" class="btn btn-success">💾 Salvar</button>

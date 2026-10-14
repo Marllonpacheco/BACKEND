@@ -47,6 +47,11 @@ $aluno = $stmt->fetch(PDO::FETCH_ASSOC);
               <input type="email" name="email"
                      value="<?= htmlspecialchars($aluno['email']) ?>" required>
             </div>
+            <div class="mb-3">
+              <label class="form-label">Turma</label>
+              <input type="text" name="turma"
+                     value="<?= htmlspecialchars($aluno['turma']) ?>" maxlength="50">
+            </div>
 
             <div class="d-flex gap-2">
               <button type="submit" class="btn btn-success">💾 Salvar</button>
