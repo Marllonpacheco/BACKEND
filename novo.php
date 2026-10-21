@@ -1,7 +1,5 @@
 <?php
-require 'verifica_login.php'; // barra quem não logou
-require 'conexao.php';
-// resto do código normal do CRUD...
+require 'verifica_login.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -13,11 +11,7 @@ require 'conexao.php';
 </head>
 <body>
 
-
-
-<?php include "navbar.php"; 
-?>
-
+<?php include "navbar.php"; ?>
 
 <div class="container mt-4">
   <div class="row justify-content-center">
@@ -29,25 +23,30 @@ require 'conexao.php';
         </div>
         <div class="card-body">
 
-          <form action="salvar.php" method="POST">
+          <form action="salvar.php" method="POST" enctype="multipart/form-data">
 
             <div class="mb-3">
               <label class="form-label">Nome completo</label>
-              <input type="text" name="nome"
-                     class="form-control"
+              <input type="text" name="nome" class="form-control"
                      placeholder="Ex: Ana Silva" required>
             </div>
 
             <div class="mb-3">
               <label class="form-label">E-mail</label>
-              <input type="email" name="email"
-                     class="form-control"
+              <input type="email" name="email" class="form-control"
                      placeholder="Ex: ana@email.com" required>
             </div>
+
             <div class="mb-3">
-            <label class="form-label">Turma</label>
-            <input type="text" name="turma" class="form-control"
-                    placeholder="Ex.: 3ºA" maxlength="50">
+              <label class="form-label">Turma</label>
+              <input type="text" name="turma" class="form-control"
+                     placeholder="Ex.: 3ºA" maxlength="50">
+            </div>
+
+            <div class="mb-3">
+              <label for="foto" class="form-label">Foto de perfil (JPG, PNG ou WebP, até 2 MB)</label>
+              <input type="file" name="foto" id="foto" class="form-control"
+                     accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
             </div>
 
             <div class="d-flex gap-2">
