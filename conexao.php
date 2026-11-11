@@ -1,6 +1,6 @@
 <?php
 $host    = "localhost";  // onde o MySQL está rodando
-$banco   = "crud_aula";  // nome do banco que criamos
+$banco   = "stockeasy";  // nome do banco que criamos
 $usuario = "root";       // usuário padrão do XAMPP
 $senha   = "";          // sem senha no XAMPP local
 

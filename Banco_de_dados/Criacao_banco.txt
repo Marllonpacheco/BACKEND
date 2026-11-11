@@ -1,0 +1,97 @@
+
+-- ==========================================
+-- STOCKEASY - CRIACAO DO BANCO DE DADOS
+-- MySQL 8.0.16+
+-- ==========================================
+
+CREATE DATABASE IF NOT EXISTS stockeasy
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE stockeasy;
+
+-- 1. USUARIOS
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    perfil ENUM('administrador', 'operador')
+        NOT NULL DEFAULT 'operador',
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 2. CATEGORIAS
+CREATE TABLE IF NOT EXISTS categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE,
+    descricao TEXT
+) ENGINE=InnoDB;
+
+-- 3. PRODUTOS
+CREATE TABLE IF NOT EXISTS produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
+    codigo VARCHAR(50) NOT NULL UNIQUE,
+    descricao TEXT,
+    quantidade INT NOT NULL DEFAULT 0,
+    estoque_minimo INT NOT NULL DEFAULT 0,
+    categoria_id INT NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_produto_categoria
+        FOREIGN KEY (categoria_id)
+        REFERENCES categorias(id)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_produto_quantidade
+        CHECK (quantidade = 0),
+
+    CONSTRAINT chk_produto_minimo
+        CHECK (estoque_minimo = 0)
+) ENGINE=InnoDB;
+
+-- 4. MOVIMENTACOES
+CREATE TABLE IF NOT EXISTS movimentacoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    tipo ENUM('entrada', 'saida') NOT NULL,
+    situacao ENUM(
+        'pendente',
+        'aprovada',
+        'concluida',
+        'rejeitada'
+    ) NOT NULL DEFAULT 'pendente',
+    data_solicitacao TIMESTAMP
+        DEFAULT CURRENT_TIMESTAMP,
+    data_conclusao TIMESTAMP NULL,
+
+    CONSTRAINT fk_movimentacao_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+        ON DELETE RESTRICT
+) ENGINE=InnoDB;
+
+-- 5. ITENS DA MOVIMENTACAO
+CREATE TABLE IF NOT EXISTS itens_movimentacao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    movimentacao_id INT NOT NULL,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL,
+
+    CONSTRAINT fk_item_movimentacao
+        FOREIGN KEY (movimentacao_id)
+        REFERENCES movimentacoes(id)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_item_produto
+        FOREIGN KEY (produto_id)
+        REFERENCES produtos(id)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_item_quantidade
+        CHECK (quantidade  0),
+
+    CONSTRAINT uq_movimentacao_produto
+        UNIQUE (movimentacao_id, produto_id)
+) ENGINE=InnoDB;
